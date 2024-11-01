@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:32:49 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/01 14:26:40 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/01 15:48:16 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 		create_threads(&data);
 		while (1)
 		{
-			if (get_status(&data) == 0)
+			if (get_status(&data) == 0) //  cheking number of meals
 				break;
 			if (monitor(&data) == 0)
 				break;
@@ -35,7 +35,8 @@ int main(int argc, char **argv)
 	}
 	else
 		error_exit("Wrong input:\n"
-                   G"Correct format: ./philo <number_of_philosophers> <time_to_die> <time_to_sleep> [<number_of_meals>]"RST);
+                   G"Correct format: ./philo <number_of_philosophers> "
+				   "<time_to_die> <time_to_sleep> [<number_of_meals>]"RST);
 	return (0);
 	
 }

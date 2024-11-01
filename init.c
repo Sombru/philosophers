@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:29:17 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/01 14:29:51 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/01 15:36:07 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int init(t_data *data)
 
 	i = 0;
 	data->dead = 0;
-	if (data->philo_num == 1)
-		error_exit("Error minnimum 2 philosophers\n");
 	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
 	if (!data->forks)
 		return(1);
@@ -61,7 +59,7 @@ int init(t_data *data)
 		if (i == data->philo_num - 1)
 			data->philos[i].left_fork = &data->forks[0];
 		data->philos[i].datas = data;
-		data->philos[i].numbers_time_to_eat = data->temp;
+		data->philos[i].number_of_meals = data->temp;
 		i++;
 	}
 	init_mutexes(data);

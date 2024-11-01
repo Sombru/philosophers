@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:28:37 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/01 13:09:11 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/01 15:35:52 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_philo
 	t_fork				*right_fork;
 	t_data				*datas;
 	unsigned long		last_meal_time;
-	int					numbers_time_to_eat;
+	int					number_of_meals;
 }						t_philo;
 
 typedef struct s_data

@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:41:47 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/01 13:50:06 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/01 15:35:36 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_status(t_data *data)
 {
 	pthread_mutex_lock(&data->status_mutex);
-	if (data->argc == 6 && data->status > data->philos->numbers_time_to_eat
+	if (data->argc == 6 && data->status > data->philos->number_of_meals
 		* data->philo_num)
 	{
 		pthread_mutex_unlock(&data->status_mutex);
