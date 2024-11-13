@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:29:17 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/13 13:13:40 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:03:45 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	init_mutexes(t_data *data)
 	int	ret;
 
 	i = 0;
-	if ((ret = pthread_mutex_init(&data->last_time, NULL)) != 0
-		|| (ret = pthread_mutex_init(&data->philos->meal, NULL)) != 0
-		|| (ret = pthread_mutex_init(&data->philos->print, NULL)) != 0
-		|| (ret = pthread_mutex_init(&data->philos->waiter, NULL)) != 0
-		|| (ret = pthread_mutex_init(&data->dead_mutex, NULL)) != 0
-		|| (ret = pthread_mutex_init(&data->tte, NULL)) != 0
-		|| (ret = pthread_mutex_init(&data->sleep, NULL)) != 0
-		|| (ret = pthread_mutex_init(&data->status_mutex, NULL)) != 0)
+	if ((pthread_mutex_init(&data->last_time, NULL)) != 0
+		|| (pthread_mutex_init(&data->philos->meal, NULL)) != 0
+		|| (pthread_mutex_init(&data->philos->print, NULL)) != 0
+		|| (pthread_mutex_init(&data->philos->waiter, NULL)) != 0
+		|| (pthread_mutex_init(&data->dead_mutex, NULL)) != 0
+		|| (pthread_mutex_init(&data->tte, NULL)) != 0
+		|| (pthread_mutex_init(&data->sleep, NULL)) != 0
+		|| (pthread_mutex_init(&data->status_mutex, NULL)) != 0)
 	{
 		error_exit("Error in mutex initialization");
 		return ;
@@ -42,18 +42,15 @@ void	init_mutexes(t_data *data)
 		i++;
 	}
 }
-
 int	init(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->dead = 0;
 	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
-	if (!data->forks)
-		return (1);
-	data->forks = malloc(sizeof(t_fork) * data->philo_num);
-	if (!data->forks)
+	data->forks = (t_fork *)malloc(sizeof(t_fork) * data->philo_num);
+	if (!data->philos || !data->forks)
 		return (1);
 	data->status = 0;
 	while (i < data->philo_num)

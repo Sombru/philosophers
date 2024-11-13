@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:01:40 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/13 13:13:58 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:30:07 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ void	write_status(t_data *data)
 	pthread_mutex_unlock(&data->status_mutex);
 }
 
-int	get_dead(t_data *data)
+int get_dead(t_data *data)
 {
 	int	is_dead;
 
 	pthread_mutex_lock(&data->dead_mutex);
 	is_dead = data->dead;
 	pthread_mutex_unlock(&data->dead_mutex);
-	return (is_dead);
+	return(is_dead);
 }
 
 int	monitor(t_data *data)
 {
-	int i;
-	unsigned long last_meal_t;
+	int				i;
+	unsigned long	last_meal_t;
 
 	i = 0;
 	while (i < data->philo_num)
