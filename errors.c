@@ -6,17 +6,17 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:43:41 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/01 10:55:42 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:13:28 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
-int error_exit(const char *error)
+int	error_exit(const char *error)
 {
-    printf(RED"%s\n"RST, error);
-    exit(EXIT_FAILURE);
-	return(1);
+	printf(RED "%s\n" RST, error);
+	exit(EXIT_FAILURE);
+	return (1);
 }
 
 int	check_error(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:41:47 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/01 15:35:36 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:14:17 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,23 @@ void	sleeping(t_philo *philo)
 	}
 }
 
-
-void *routine(void *arg)
+void	*routine(void *arg)
 {
-    t_philo *philo = (t_philo *)arg;
+	t_philo *philo = (t_philo *)arg;
 
-    if (philo->philo_id % 2 == 0)
-        sleeping(philo);
+	if (philo->philo_id % 2 == 0)
+		sleeping(philo);
 
-    while (get_status(philo->datas))
-    {
-        if (get_dead(philo->datas))
-            break;
+	while (get_status(philo->datas))
+	{
+		if (get_dead(philo->datas))
+			break ;
 
-        thinking(philo);
-        pick_up_forks(philo);
-        eat(philo);
-        put_down_forks(philo);
-        sleeping(philo);
-    }
-    return NULL;
+		thinking(philo);
+		pick_up_forks(philo);
+		eat(philo);
+		put_down_forks(philo);
+		sleeping(philo);
+	}
+	return (NULL);
 }
