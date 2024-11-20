@@ -6,23 +6,24 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:28:37 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/13 13:14:09 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:19:23 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h> // mutex: init destroy lock unlock
-#include <stdbool.h> // bool (0,1)
-#include <stdio.h>   // printf
-#include <stdlib.h>  // malloc
-#include <unistd.h>  // write, sleep
+#ifndef PHILO_H
+
+# define PHILO_H
+
+# include <pthread.h> // mutex: init destroy lock unlock
+# include <stdbool.h> // bool (0,1)
+# include <stdio.h>   // printf
+# include <stdlib.h>  // malloc
+# include <unistd.h>  // write, sleep
 						//
 
-#include <errno.h>
-#include <limits.h>   // int max
-#include <sys/time.h> // gettimeofday
-
-#ifndef PHILO_H
-# define PHILO_H
+# include <errno.h>
+# include <limits.h>   // int max
+# include <sys/time.h> // gettimeofday
 
 // ASCII Escape sequences for Bold Text Colors
 // Usage:
@@ -105,7 +106,10 @@ int						monitor(t_data *data);
 void					ft_usleep(unsigned long arg, t_data *data);
 unsigned long			ft_get_time_of_day(void);
 int						parse_input(char **str, t_data *data);
-int						ft_atoi(char *str);
+long					ft_atoi(char *str);
 int						arg_check(char *str, t_data *data);
+
+# define ERR "./philo <num_of_philos> <time_to_die> "
+# define ERR2 "<time_to_sleep> [<number_of_meals>]"
 
 #endif

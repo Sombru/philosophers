@@ -6,11 +6,27 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:58:21 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/13 13:15:45 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:21:09 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void static	is_valid_input(t_data *data)
+{
+	if (data->philo_num <= 0)
+		error_exit(RED "Atleast one philosopher expected\n" RST);
+	if (data->philo_num >= 200)
+	{
+		printf(Y "WARNING simulating with more than 200 philosophers "
+			"may lead to unexpected behaviour\n" RST);
+		usleep(996969);
+	}
+	if (data->time_to_die <= 60
+		|| data->time_to_eat <= 60
+		|| data->time_to_sleep <= 60)
+		error_exit(RED "Use timestamps greater than " C "60ms\n" RST);
+}
 
 int	arg_check(char *str, t_data *data)
 {
@@ -21,7 +37,6 @@ int	arg_check(char *str, t_data *data)
 	i = 0;
 	minus = 0;
 	plus = 0;
-	// Check for any signs at the start
 	while (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
@@ -30,37 +45,31 @@ int	arg_check(char *str, t_data *data)
 			plus++;
 		i++;
 	}
-	// If invalid signs or no digits follow the signs, return an error
 	if (minus > 0 || plus > 1 || !(str[i] >= '0' && str[i] <= '9'))
 	{
 		data->check_error++;
 		return (0);
 	}
-	// Check that the remainder is numeric
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
-	// If there are non-numeric characters, increment error
 	if (str[i] != '\0')
 		data->check_error++;
 	return (1);
 }
 
-int	ft_atoi(char *str)
+long	ft_atoi(char *str)
 {
-	int	sign;
-	int	number;
+	int		sign;
+	long	number;
 
 	sign = 1;
 	number = 0;
-	// Skip whitespace
 	while (*str == ' ' || *str == '\t' || (*str >= 9 && *str <= 13))
 		str++;
-	// Handle sign
 	if (*str == '-')
 		sign = -1;
 	if (*str == '-' || *str == '+')
 		str++;
-	// Convert number
 	while (*str >= '0' && *str <= '9')
 	{
 		number = number * 10 + (*str - '0');
@@ -94,5 +103,6 @@ int	parse_input(char **str, t_data *data)
 			return (1);
 		data->temp = ft_atoi(str[i++]);
 	}
+	is_valid_input(data);
 	return (data->check_error > 0);
 }

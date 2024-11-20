@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:01:40 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/13 13:30:07 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:34:56 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@ void	write_status(t_data *data)
 {
 	pthread_mutex_lock(&data->status_mutex);
 	data->status++;
+	printf("status = %d\n", data->status);
 	pthread_mutex_unlock(&data->status_mutex);
 }
 
-int get_dead(t_data *data)
+int	get_dead(t_data *data)
 {
 	int	is_dead;
 
 	pthread_mutex_lock(&data->dead_mutex);
 	is_dead = data->dead;
 	pthread_mutex_unlock(&data->dead_mutex);
-	return(is_dead);
+	return (is_dead);
 }
 
 int	monitor(t_data *data)
@@ -50,7 +51,7 @@ int	monitor(t_data *data)
 				data->philos[i].philo_id);
 			pthread_mutex_unlock(&data->dead_mutex);
 			destroy(data);
-			error_exit("Philospher died, simulation stop\n");
+			error_exit(RED "Philospher died, simulation stop\n" RST);
 			return (0);
 		}
 		i++;

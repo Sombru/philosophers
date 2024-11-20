@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 10:46:30 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/13 13:15:10 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:38:45 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,8 @@ void	join_threads(t_data *data)
 	}
 }
 
-void	destroy(t_data *data)
+static void	destroy_mutex(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (i < data->philo_num)
-	{
-		pthread_join(data->philos->thread[i], NULL);
-		i++;
-	}
-	if (data->philos->thread)
-	{
-		free(data->philos->thread);
-		data->philos->thread = NULL;
-	}
 	pthread_mutex_destroy(&data->last_time);
 	pthread_mutex_destroy(&data->dead_mutex);
 	pthread_mutex_destroy(&data->tte);
@@ -65,12 +52,24 @@ void	destroy(t_data *data)
 	pthread_mutex_destroy(&data->philos->meal);
 	pthread_mutex_destroy(&data->philos->print);
 	pthread_mutex_destroy(&data->philos->waiter);
+}
+
+void	destroy(t_data *data)
+{
+	int	i;
+
 	i = 0;
 	while (i < data->philo_num)
+		pthread_join(data->philos->thread[i++], NULL);
+	if (data->philos->thread)
 	{
-		pthread_mutex_destroy(&data->forks[i].fork);
-		i++;
+		free(data->philos->thread);
+		data->philos->thread = NULL;
 	}
+	destroy_mutex(data);
+	i = 0;
+	while (i < data->philo_num)
+		pthread_mutex_destroy(&data->forks[i++].fork);
 	if (data->philos)
 	{
 		free(data->philos);

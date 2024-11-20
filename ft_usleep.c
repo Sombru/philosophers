@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:26:05 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/01 13:52:22 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:31:10 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_usleep(unsigned long duration_ms, t_data *data)
 		current_time = ft_get_time_of_day();
 		if ((current_time - start_time) >= duration_ms || get_status(data) == 0)
 			break ;
-		// Sleep for the remaining duration or a small interval to check status regularly
-		usleep(1000); // Sleep in 1 ms increments to minimize CPU usage
+		usleep(1000);
 	}
 }

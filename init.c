@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:29:17 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/13 14:03:45 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:12:24 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,20 @@ void	init_mutexes(t_data *data)
 		|| (pthread_mutex_init(&data->sleep, NULL)) != 0
 		|| (pthread_mutex_init(&data->status_mutex, NULL)) != 0)
 	{
+		destroy(data);
 		error_exit("Error in mutex initialization");
-		return ;
 	}
 	while (i < data->philo_num)
 	{
-		ret = pthread_mutex_init(&(data->forks[i].fork), NULL);
+		ret = pthread_mutex_init(&(data->forks[i++].fork), NULL);
 		if (ret != 0)
 		{
+			destroy(data);
 			error_exit("Error in fork mutex initialization");
-			destroy(data); // Destroy any previously initialized mutexes
-			return ;
 		}
-		i++;
 	}
 }
+
 int	init(t_data *data)
 {
 	int	i;
