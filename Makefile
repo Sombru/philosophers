@@ -1,6 +1,6 @@
 NAME = philosophers
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 CC = cc
 RM = rm -rf
 

@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:29:17 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/20 13:12:24 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:01:45 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	init_mutexes(t_data *data)
 		|| (pthread_mutex_init(&data->dead_mutex, NULL)) != 0
 		|| (pthread_mutex_init(&data->tte, NULL)) != 0
 		|| (pthread_mutex_init(&data->sleep, NULL)) != 0
+		|| (pthread_mutex_init(&data->start_time_mutex, NULL)) != 0
+		|| (pthread_mutex_init(&data->philos->philo_id_mutex, NULL)) != 0
 		|| (pthread_mutex_init(&data->status_mutex, NULL)) != 0)
 	{
 		destroy(data);

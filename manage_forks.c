@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:00:55 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/13 13:33:19 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:03:46 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	pick_up_forks(t_philo *philo)
 		&& (get_dead(philo->datas) == 0))
 	{
 		pthread_mutex_lock(&philo->print);
-		printf("%lu %d has taken a fork\n", ft_get_time_of_day()
-			- philo->datas->start_time, philo->philo_id);
+		if (get_status(philo->datas))
+			safe_printf(philo, "taken a fork ");
 		pthread_mutex_unlock(&philo->print);
 	}
 	if (philo->datas->philo_num == 1)
@@ -31,8 +31,8 @@ int	pick_up_forks(t_philo *philo)
 		&& (get_dead(philo->datas)) == 0)
 	{
 		pthread_mutex_lock(&philo->print);
-		printf("%lu %d has taken a fork\n", ft_get_time_of_day()
-			- philo->datas->start_time, philo->philo_id);
+		if (get_status(philo->datas))
+			safe_printf(philo, "taken a fork ");
 		pthread_mutex_unlock(&philo->print);
 	}
 	return (0);

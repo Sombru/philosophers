@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 10:46:30 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/13 13:38:45 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:03:01 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ static void	destroy_mutex(t_data *data)
 	pthread_mutex_destroy(&data->philos->meal);
 	pthread_mutex_destroy(&data->philos->print);
 	pthread_mutex_destroy(&data->philos->waiter);
+	pthread_mutex_destroy(&data->philos->philo_id_mutex);
+	pthread_mutex_destroy(&data->start_time_mutex);
+	
 }
 
 void	destroy(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:41:47 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/20 14:16:10 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:03:56 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,14 @@
 
 int	get_status(t_data *data)
 {
+	int	extra_meal;
+
+	extra_meal = 0;
+	if (data->philo_num % 2 != 0)
+		extra_meal = 1;
 	pthread_mutex_lock(&data->status_mutex);
-	if (data->argc == 6 && data->status >= data->philos->number_of_meals)
+	if (data->argc == 6 && data->status == (data->philos->number_of_meals
+			+ extra_meal))
 	{
 		pthread_mutex_unlock(&data->status_mutex);
 		return (0);
@@ -35,11 +41,11 @@ void	eat(t_philo *philo)
 		philo->last_meal_time = ft_get_time_of_day();
 		pthread_mutex_unlock(&philo->datas->last_time);
 		pthread_mutex_lock(&philo->print);
-		printf("%lu %d is eating\n", ft_get_time_of_day()
-			- philo->datas->start_time, philo->philo_id);
+		if (get_status(philo->datas))
+			safe_printf(philo, "is eating");
 		pthread_mutex_unlock(&philo->print);
 		ft_usleep(philo->datas->time_to_eat, philo->datas);
-		if (philo->philo_id == 1)
+		if (philo->philo_id == 2)
 			write_status(philo->datas);
 	}
 }
@@ -49,8 +55,8 @@ void	thinking(t_philo *philo)
 	if (get_dead(philo->datas) == 0)
 	{
 		pthread_mutex_lock(&philo->print);
-		printf("%lu %d is thinking\n", ft_get_time_of_day()
-			- philo->datas->start_time, philo->philo_id);
+		if (get_status(philo->datas))
+			safe_printf(philo, "is thinking ");
 		pthread_mutex_unlock(&philo->print);
 	}
 }
@@ -60,8 +66,8 @@ void	sleeping(t_philo *philo)
 	if (get_dead(philo->datas) == 0)
 	{
 		pthread_mutex_lock(&philo->print);
-		printf("%lu %d is sleeping\n", ft_get_time_of_day()
-			- philo->datas->start_time, philo->philo_id);
+		if (get_status(philo->datas))
+			safe_printf(philo, "is sleeping ");
 		ft_usleep(philo->datas->time_to_sleep, philo->datas);
 		pthread_mutex_unlock(&philo->print);
 	}

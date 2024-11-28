@@ -6,7 +6,7 @@
 /*   By: pkostura < pkostura@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:28:37 by pkostura          #+#    #+#             */
-/*   Updated: 2024/11/20 12:19:23 by pkostura         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:01:22 by pkostura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_philo
 	pthread_mutex_t		meal;
 	pthread_mutex_t		print;
 	int					philo_id;
+	pthread_mutex_t		philo_id_mutex;
 	t_fork				*left_fork;
 	t_fork				*right_fork;
 	t_data				*datas;
@@ -78,6 +79,7 @@ typedef struct s_data
 	int					philo_num;
 	int					dead;
 	unsigned long		start_time;
+	pthread_mutex_t		start_time_mutex;
 	pthread_mutex_t		status_mutex;
 	int					status;
 	int					check_error;
@@ -108,6 +110,8 @@ unsigned long			ft_get_time_of_day(void);
 int						parse_input(char **str, t_data *data);
 long					ft_atoi(char *str);
 int						arg_check(char *str, t_data *data);
+int						is_even(t_data	*data);
+void 					safe_printf(t_philo *philo, char *str);
 
 # define ERR "./philo <num_of_philos> <time_to_die> "
 # define ERR2 "<time_to_sleep> [<number_of_meals>]"
